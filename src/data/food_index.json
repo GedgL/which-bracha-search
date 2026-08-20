@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "note": "Flat lookup mapping food names/aliases to a node id in flowchart.json. If resolves_to is a final-answer node (is_final: true), the search jumps straight to the result. If it's a question node, the search drops into the guided flow starting from that node, with a short note explaining why a follow-up is needed. This index is illustrative/example content — real production coverage would need far more foods and aliases."
+  },
+  "food_index": [
+    { "name": "apple", "aliases": ["apples"], "resolves_to": "final_haetz" },
+    { "name": "pear", "aliases": ["pears"], "resolves_to": "final_haetz" },
+    { "name": "grapes", "aliases": ["grape"], "resolves_to": "final_haetz" },
+    { "name": "date", "aliases": ["dates"], "resolves_to": "final_haetz" },
+    { "name": "fig", "aliases": ["figs"], "resolves_to": "final_haetz" },
+    { "name": "pomegranate", "aliases": ["pomegranates"], "resolves_to": "final_haetz" },
+    { "name": "olive", "aliases": ["olives"], "resolves_to": "final_haetz" },
+    { "name": "peach", "aliases": ["peaches", "plum", "plums", "cherry", "cherries"], "resolves_to": "final_haetz" },
+
+    { "name": "banana", "aliases": ["bananas"], "resolves_to": "final_haadama" },
+    { "name": "pineapple", "aliases": ["pineapples"], "resolves_to": "final_haadama" },
+    { "name": "carrot", "aliases": ["carrots"], "resolves_to": "final_haadama" },
+    { "name": "potato", "aliases": ["potatoes"], "resolves_to": "final_haadama" },
+    { "name": "cucumber", "aliases": ["cucumbers"], "resolves_to": "final_haadama" },
+    { "name": "tomato", "aliases": ["tomatoes"], "resolves_to": "final_haadama" },
+    { "name": "lettuce", "aliases": [], "resolves_to": "final_haadama" },
+    { "name": "pickle", "aliases": ["pickles", "pickled cucumber"], "resolves_to": "final_haadama" },
+    { "name": "peanut", "aliases": ["peanuts"], "resolves_to": "final_haadama" },
+
+    { "name": "onion", "aliases": ["onions"], "resolves_to": "veggie_raw_common_check", "needs_followup_note": "Depends on whether it's raw or cooked, and how strong/aged it is." },
+    { "name": "garlic", "aliases": [], "resolves_to": "veggie_raw_common_check", "needs_followup_note": "Depends on whether it's raw or cooked, and how strong/aged it is." },
+    { "name": "spinach", "aliases": [], "resolves_to": "veggie_raw_common_check", "needs_followup_note": "Depends on whether it's eaten raw (like in a salad) or cooked." },
+    { "name": "cabbage", "aliases": [], "resolves_to": "veggie_raw_common_check", "needs_followup_note": "Depends on whether it's eaten raw or cooked/pickled." },
+    { "name": "rice", "aliases": [], "resolves_to": "veggie_eaten_how", "needs_followup_note": "Depends on how it's prepared and eaten." },
+
+    { "name": "ginger", "aliases": [], "resolves_to": "ground_produce_spice_check", "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food." },
+    { "name": "cinnamon", "aliases": [], "resolves_to": "ground_produce_spice_check", "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food." },
+    { "name": "saffron", "aliases": [], "resolves_to": "ground_produce_spice_check", "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food." },
+
+    { "name": "wine", "aliases": [], "resolves_to": "final_hagafen" },
+    { "name": "grape juice", "aliases": [], "resolves_to": "final_hagafen" },
+    { "name": "orange juice", "aliases": ["apple juice", "fruit juice"], "resolves_to": "final_shehakol_drink" },
+    { "name": "soda", "aliases": ["soft drink"], "resolves_to": "final_shehakol_drink" },
+    { "name": "coffee", "aliases": [], "resolves_to": "final_shehakol_drink" },
+    { "name": "tea", "aliases": [], "resolves_to": "final_shehakol_drink" },
+    { "name": "beer", "aliases": [], "resolves_to": "final_shehakol_drink" },
+    { "name": "water", "aliases": [], "resolves_to": "cat_other_drinks", "needs_followup_note": "Plain water's blessing depends on whether you're actually thirsty." },
+    { "name": "olive oil", "aliases": [], "resolves_to": "final_oil_complex" },
+
+    { "name": "milk", "aliases": [], "resolves_to": "final_shehakol_other" },
+    { "name": "cheese", "aliases": [], "resolves_to": "final_shehakol_other" },
+    { "name": "egg", "aliases": ["eggs"], "resolves_to": "final_shehakol_other" },
+    { "name": "chicken", "aliases": [], "resolves_to": "final_shehakol_other" },
+    { "name": "fish", "aliases": [], "resolves_to": "final_shehakol_other" },
+    { "name": "steak", "aliases": ["beef", "meat"], "resolves_to": "final_shehakol_other" },
+    { "name": "mushroom", "aliases": ["mushrooms"], "resolves_to": "final_shehakol_other" },
+    { "name": "honey", "aliases": [], "resolves_to": "final_shehakol_other" },
+
+    { "name": "bread", "aliases": ["roll", "bagel", "pita"], "resolves_to": "cat_bread", "needs_followup_note": "Depends on whether it's a full bread-status item and whether you're eating it as a meal." },
+    { "name": "cracker", "aliases": ["crackers"], "resolves_to": "cat_bread", "needs_followup_note": "Depends on whether it's a full bread-status item and whether you're eating it as a meal." },
+    { "name": "cake", "aliases": [], "resolves_to": "cat_bread", "needs_followup_note": "Depends on whether it's bread-status or more of a pastry, and how it's eaten." },
+    { "name": "cereal", "aliases": [], "resolves_to": "cat_bread", "needs_followup_note": "Depends on the grain and how much/how it's eaten." },
+    { "name": "pasta", "aliases": ["noodles"], "resolves_to": "cat_bread", "needs_followup_note": "Depends on the amount and how it's eaten." },
+
+    { "name": "granola bar", "aliases": ["muesli bar"], "resolves_to": "mixed_start", "needs_followup_note": "It's a mixture of grain, fruit, and other ingredients — the answer depends on the mix." },
+    { "name": "trail mix", "aliases": ["nut mix"], "resolves_to": "mixed_start", "needs_followup_note": "It's a mixture of several food types — the answer depends on the mix." },
+    { "name": "fruit salad", "aliases": [], "resolves_to": "mixed_start", "needs_followup_note": "It's a mixture of several fruits — the answer depends on whether one is dominant." },
+    { "name": "rice with meat", "aliases": ["rice and chicken"], "resolves_to": "mixed_start", "needs_followup_note": "It's a mixture of foods — the answer depends on which part is primary." },
+    { "name": "pizza", "aliases": [], "resolves_to": "mixed_start", "needs_followup_note": "It's a combination of dough, cheese, and toppings — the answer depends on the grain content." },
+    { "name": "sandwich", "aliases": [], "resolves_to": "mixed_start", "needs_followup_note": "It's a combination of bread and filling — the answer depends on the grain content." }
+  ]
+}
