@@ -1,67 +1,975 @@
 {
   "_meta": {
-    "note": "Flat lookup mapping food names/aliases to a node id in flowchart.json. If resolves_to is a final-answer node (is_final: true), the search jumps straight to the result. If it's a question node, the search drops into the guided flow starting from that node, with a short note explaining why a follow-up is needed. This index is illustrative/example content — real production coverage would need far more foods and aliases."
+    "note": "Flat lookup mapping food names/aliases to a node id in flowchart.json. If resolves_to is a final-answer node (is_final: true), the search jumps straight to the result. If it's a question node, the search drops into the guided flow starting from that node, with a short note explaining why a follow-up is needed. Covers common foods across all major categories; genuinely disputed/obscure edge cases (e.g. papaya's tree-fruit status) are intentionally left out rather than guessed — those fall through to 'browse categories'."
   },
   "food_index": [
-    { "name": "apple", "aliases": ["apples"], "resolves_to": "final_haetz" },
-    { "name": "pear", "aliases": ["pears"], "resolves_to": "final_haetz" },
-    { "name": "grapes", "aliases": ["grape"], "resolves_to": "final_haetz" },
-    { "name": "date", "aliases": ["dates"], "resolves_to": "final_haetz" },
-    { "name": "fig", "aliases": ["figs"], "resolves_to": "final_haetz" },
-    { "name": "pomegranate", "aliases": ["pomegranates"], "resolves_to": "final_haetz" },
-    { "name": "olive", "aliases": ["olives"], "resolves_to": "final_haetz" },
-    { "name": "peach", "aliases": ["peaches", "plum", "plums", "cherry", "cherries"], "resolves_to": "final_haetz" },
-
-    { "name": "banana", "aliases": ["bananas"], "resolves_to": "final_haadama" },
-    { "name": "pineapple", "aliases": ["pineapples"], "resolves_to": "final_haadama" },
-    { "name": "carrot", "aliases": ["carrots"], "resolves_to": "final_haadama" },
-    { "name": "potato", "aliases": ["potatoes"], "resolves_to": "final_haadama" },
-    { "name": "cucumber", "aliases": ["cucumbers"], "resolves_to": "final_haadama" },
-    { "name": "tomato", "aliases": ["tomatoes"], "resolves_to": "final_haadama" },
-    { "name": "lettuce", "aliases": [], "resolves_to": "final_haadama" },
-    { "name": "pickle", "aliases": ["pickles", "pickled cucumber"], "resolves_to": "final_haadama" },
-    { "name": "peanut", "aliases": ["peanuts"], "resolves_to": "final_haadama" },
-
-    { "name": "onion", "aliases": ["onions"], "resolves_to": "veggie_raw_common_check", "needs_followup_note": "Depends on whether it's raw or cooked, and how strong/aged it is." },
-    { "name": "garlic", "aliases": [], "resolves_to": "veggie_raw_common_check", "needs_followup_note": "Depends on whether it's raw or cooked, and how strong/aged it is." },
-    { "name": "spinach", "aliases": [], "resolves_to": "veggie_raw_common_check", "needs_followup_note": "Depends on whether it's eaten raw (like in a salad) or cooked." },
-    { "name": "cabbage", "aliases": [], "resolves_to": "veggie_raw_common_check", "needs_followup_note": "Depends on whether it's eaten raw or cooked/pickled." },
-    { "name": "rice", "aliases": [], "resolves_to": "veggie_eaten_how", "needs_followup_note": "Depends on how it's prepared and eaten." },
-
-    { "name": "ginger", "aliases": [], "resolves_to": "ground_produce_spice_check", "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food." },
-    { "name": "cinnamon", "aliases": [], "resolves_to": "ground_produce_spice_check", "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food." },
-    { "name": "saffron", "aliases": [], "resolves_to": "ground_produce_spice_check", "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food." },
-
-    { "name": "wine", "aliases": [], "resolves_to": "final_hagafen" },
-    { "name": "grape juice", "aliases": [], "resolves_to": "final_hagafen" },
-    { "name": "orange juice", "aliases": ["apple juice", "fruit juice"], "resolves_to": "final_shehakol_drink" },
-    { "name": "soda", "aliases": ["soft drink"], "resolves_to": "final_shehakol_drink" },
-    { "name": "coffee", "aliases": [], "resolves_to": "final_shehakol_drink" },
-    { "name": "tea", "aliases": [], "resolves_to": "final_shehakol_drink" },
-    { "name": "beer", "aliases": [], "resolves_to": "final_shehakol_drink" },
-    { "name": "water", "aliases": [], "resolves_to": "cat_other_drinks", "needs_followup_note": "Plain water's blessing depends on whether you're actually thirsty." },
-    { "name": "olive oil", "aliases": [], "resolves_to": "final_oil_complex" },
-
-    { "name": "milk", "aliases": [], "resolves_to": "final_shehakol_other" },
-    { "name": "cheese", "aliases": [], "resolves_to": "final_shehakol_other" },
-    { "name": "egg", "aliases": ["eggs"], "resolves_to": "final_shehakol_other" },
-    { "name": "chicken", "aliases": [], "resolves_to": "final_shehakol_other" },
-    { "name": "fish", "aliases": [], "resolves_to": "final_shehakol_other" },
-    { "name": "steak", "aliases": ["beef", "meat"], "resolves_to": "final_shehakol_other" },
-    { "name": "mushroom", "aliases": ["mushrooms"], "resolves_to": "final_shehakol_other" },
-    { "name": "honey", "aliases": [], "resolves_to": "final_shehakol_other" },
-
-    { "name": "bread", "aliases": ["roll", "bagel", "pita"], "resolves_to": "cat_bread", "needs_followup_note": "Depends on whether it's a full bread-status item and whether you're eating it as a meal." },
-    { "name": "cracker", "aliases": ["crackers"], "resolves_to": "cat_bread", "needs_followup_note": "Depends on whether it's a full bread-status item and whether you're eating it as a meal." },
-    { "name": "cake", "aliases": [], "resolves_to": "cat_bread", "needs_followup_note": "Depends on whether it's bread-status or more of a pastry, and how it's eaten." },
-    { "name": "cereal", "aliases": [], "resolves_to": "cat_bread", "needs_followup_note": "Depends on the grain and how much/how it's eaten." },
-    { "name": "pasta", "aliases": ["noodles"], "resolves_to": "cat_bread", "needs_followup_note": "Depends on the amount and how it's eaten." },
-
-    { "name": "granola bar", "aliases": ["muesli bar"], "resolves_to": "mixed_start", "needs_followup_note": "It's a mixture of grain, fruit, and other ingredients — the answer depends on the mix." },
-    { "name": "trail mix", "aliases": ["nut mix"], "resolves_to": "mixed_start", "needs_followup_note": "It's a mixture of several food types — the answer depends on the mix." },
-    { "name": "fruit salad", "aliases": [], "resolves_to": "mixed_start", "needs_followup_note": "It's a mixture of several fruits — the answer depends on whether one is dominant." },
-    { "name": "rice with meat", "aliases": ["rice and chicken"], "resolves_to": "mixed_start", "needs_followup_note": "It's a mixture of foods — the answer depends on which part is primary." },
-    { "name": "pizza", "aliases": [], "resolves_to": "mixed_start", "needs_followup_note": "It's a combination of dough, cheese, and toppings — the answer depends on the grain content." },
-    { "name": "sandwich", "aliases": [], "resolves_to": "mixed_start", "needs_followup_note": "It's a combination of bread and filling — the answer depends on the grain content." }
+    {
+      "name": "apple",
+      "aliases": [
+        "apples"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "pear",
+      "aliases": [
+        "pears"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "grapes",
+      "aliases": [
+        "grape"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "date",
+      "aliases": [
+        "dates"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "fig",
+      "aliases": [
+        "figs"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "pomegranate",
+      "aliases": [
+        "pomegranates"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "olive",
+      "aliases": [
+        "olives"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "peach",
+      "aliases": [
+        "peaches",
+        "plum",
+        "plums",
+        "cherry",
+        "cherries",
+        "apricot",
+        "apricots",
+        "nectarine",
+        "nectarines"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "orange",
+      "aliases": [
+        "oranges",
+        "mandarin",
+        "clementine",
+        "tangerine"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "grapefruit",
+      "aliases": [
+        "grapefruits"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "lemon",
+      "aliases": [
+        "lemons"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "lime",
+      "aliases": [
+        "limes"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "avocado",
+      "aliases": [
+        "avocados"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "mango",
+      "aliases": [
+        "mangoes",
+        "mangos"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "kiwi",
+      "aliases": [
+        "kiwis",
+        "kiwifruit"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "persimmon",
+      "aliases": [
+        "persimmons"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "guava",
+      "aliases": [
+        "guavas"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "lychee",
+      "aliases": [
+        "lychees",
+        "litchi"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "coconut",
+      "aliases": [
+        "coconuts"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "almond",
+      "aliases": [
+        "almonds"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "walnut",
+      "aliases": [
+        "walnuts"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "cashew",
+      "aliases": [
+        "cashews"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "pistachio",
+      "aliases": [
+        "pistachios"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "pecan",
+      "aliases": [
+        "pecans"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "hazelnut",
+      "aliases": [
+        "hazelnuts",
+        "filbert"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "macadamia",
+      "aliases": [
+        "macadamia nut",
+        "macadamia nuts"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "brazil nut",
+      "aliases": [
+        "brazil nuts"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "pine nut",
+      "aliases": [
+        "pine nuts",
+        "pignoli"
+      ],
+      "resolves_to": "final_haetz"
+    },
+    {
+      "name": "matzah",
+      "aliases": [
+        "matzo",
+        "matza",
+        "matzoh"
+      ],
+      "resolves_to": "final_hamotzi"
+    },
+    {
+      "name": "banana",
+      "aliases": [
+        "bananas"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "pineapple",
+      "aliases": [
+        "pineapples"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "carrot",
+      "aliases": [
+        "carrots"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "potato",
+      "aliases": [
+        "potatoes"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "cucumber",
+      "aliases": [
+        "cucumbers"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "tomato",
+      "aliases": [
+        "tomatoes"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "lettuce",
+      "aliases": [],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "pickle",
+      "aliases": [
+        "pickles",
+        "pickled cucumber"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "peanut",
+      "aliases": [
+        "peanuts"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "sweet potato",
+      "aliases": [
+        "sweet potatoes",
+        "yam",
+        "yams"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "beet",
+      "aliases": [
+        "beets",
+        "beetroot"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "radish",
+      "aliases": [
+        "radishes"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "turnip",
+      "aliases": [
+        "turnips"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "parsnip",
+      "aliases": [
+        "parsnips"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "celery",
+      "aliases": [],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "bell pepper",
+      "aliases": [
+        "peppers",
+        "capsicum"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "sunflower seed",
+      "aliases": [
+        "sunflower seeds"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "pumpkin seed",
+      "aliases": [
+        "pumpkin seeds",
+        "pepitas"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "french fries",
+      "aliases": [
+        "fries",
+        "chips",
+        "potato chips"
+      ],
+      "resolves_to": "final_haadama"
+    },
+    {
+      "name": "onion",
+      "aliases": [
+        "onions"
+      ],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's raw or cooked, and how strong/aged it is."
+    },
+    {
+      "name": "garlic",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's raw or cooked, and how strong/aged it is."
+    },
+    {
+      "name": "spinach",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw (like in a salad) or cooked."
+    },
+    {
+      "name": "cabbage",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked/pickled."
+    },
+    {
+      "name": "kale",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked."
+    },
+    {
+      "name": "broccoli",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked."
+    },
+    {
+      "name": "cauliflower",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked."
+    },
+    {
+      "name": "zucchini",
+      "aliases": [
+        "courgette"
+      ],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked."
+    },
+    {
+      "name": "eggplant",
+      "aliases": [
+        "aubergine"
+      ],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked (most people only eat it cooked)."
+    },
+    {
+      "name": "squash",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked (most squash is only eaten cooked)."
+    },
+    {
+      "name": "pumpkin",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked (usually only cooked)."
+    },
+    {
+      "name": "green beans",
+      "aliases": [
+        "string beans"
+      ],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked."
+    },
+    {
+      "name": "brussels sprouts",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked (usually only cooked)."
+    },
+    {
+      "name": "asparagus",
+      "aliases": [],
+      "resolves_to": "veggie_raw_common_check",
+      "needs_followup_note": "Depends on whether it's eaten raw or cooked."
+    },
+    {
+      "name": "rice",
+      "aliases": [],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how it's prepared and eaten."
+    },
+    {
+      "name": "beans",
+      "aliases": [
+        "black beans",
+        "kidney beans",
+        "pinto beans",
+        "lima beans",
+        "white beans"
+      ],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how they're prepared and eaten — cooked beans get a different answer than raw."
+    },
+    {
+      "name": "lentils",
+      "aliases": [
+        "lentil"
+      ],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how they're prepared and eaten."
+    },
+    {
+      "name": "chickpeas",
+      "aliases": [
+        "garbanzo beans",
+        "garbanzos"
+      ],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how they're prepared and eaten."
+    },
+    {
+      "name": "split peas",
+      "aliases": [
+        "green peas",
+        "peas"
+      ],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how they're prepared and eaten."
+    },
+    {
+      "name": "black-eyed peas",
+      "aliases": [],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how they're prepared and eaten."
+    },
+    {
+      "name": "edamame",
+      "aliases": [
+        "soybeans"
+      ],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how they're prepared and eaten."
+    },
+    {
+      "name": "quinoa",
+      "aliases": [],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how it's prepared and eaten."
+    },
+    {
+      "name": "corn",
+      "aliases": [
+        "corn on the cob",
+        "sweet corn"
+      ],
+      "resolves_to": "veggie_eaten_how",
+      "needs_followup_note": "Depends on how it's prepared and eaten."
+    },
+    {
+      "name": "ginger",
+      "aliases": [],
+      "resolves_to": "ground_produce_spice_check",
+      "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food."
+    },
+    {
+      "name": "cinnamon",
+      "aliases": [],
+      "resolves_to": "ground_produce_spice_check",
+      "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food."
+    },
+    {
+      "name": "saffron",
+      "aliases": [],
+      "resolves_to": "ground_produce_spice_check",
+      "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food."
+    },
+    {
+      "name": "black pepper",
+      "aliases": [
+        "pepper (spice)"
+      ],
+      "resolves_to": "ground_produce_spice_check",
+      "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food."
+    },
+    {
+      "name": "nutmeg",
+      "aliases": [],
+      "resolves_to": "ground_produce_spice_check",
+      "needs_followup_note": "Depends on whether it's eaten on its own or only used to flavor other food."
+    },
+    {
+      "name": "wine",
+      "aliases": [],
+      "resolves_to": "final_hagafen"
+    },
+    {
+      "name": "grape juice",
+      "aliases": [],
+      "resolves_to": "final_hagafen"
+    },
+    {
+      "name": "orange juice",
+      "aliases": [
+        "apple juice",
+        "fruit juice",
+        "cranberry juice",
+        "pineapple juice",
+        "lemonade",
+        "iced tea"
+      ],
+      "resolves_to": "final_shehakol_drink"
+    },
+    {
+      "name": "soda",
+      "aliases": [
+        "soft drink",
+        "pop"
+      ],
+      "resolves_to": "final_shehakol_drink"
+    },
+    {
+      "name": "coffee",
+      "aliases": [],
+      "resolves_to": "final_shehakol_drink"
+    },
+    {
+      "name": "tea",
+      "aliases": [],
+      "resolves_to": "final_shehakol_drink"
+    },
+    {
+      "name": "beer",
+      "aliases": [],
+      "resolves_to": "final_shehakol_drink"
+    },
+    {
+      "name": "carrot juice",
+      "aliases": [
+        "tomato juice",
+        "vegetable juice"
+      ],
+      "resolves_to": "final_shehakol_drink"
+    },
+    {
+      "name": "hot chocolate",
+      "aliases": [
+        "cocoa"
+      ],
+      "resolves_to": "final_shehakol_drink"
+    },
+    {
+      "name": "water",
+      "aliases": [],
+      "resolves_to": "cat_other_drinks",
+      "needs_followup_note": "Plain water's blessing depends on whether you're actually thirsty."
+    },
+    {
+      "name": "olive oil",
+      "aliases": [],
+      "resolves_to": "final_oil_complex"
+    },
+    {
+      "name": "milk",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "cheese",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "egg",
+      "aliases": [
+        "eggs"
+      ],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "chicken",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "fish",
+      "aliases": [
+        "salmon",
+        "tuna"
+      ],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "steak",
+      "aliases": [
+        "beef",
+        "meat"
+      ],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "mushroom",
+      "aliases": [
+        "mushrooms"
+      ],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "honey",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "yogurt",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "butter",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "cream",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "turkey",
+      "aliases": [
+        "duck",
+        "lamb"
+      ],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "tofu",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "salt",
+      "aliases": [],
+      "resolves_to": "final_shehakol_other"
+    },
+    {
+      "name": "bread",
+      "aliases": [
+        "roll",
+        "bagel",
+        "pita"
+      ],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on whether it's a full bread-status item and whether you're eating it as a meal."
+    },
+    {
+      "name": "cracker",
+      "aliases": [
+        "crackers"
+      ],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on whether it's a full bread-status item and whether you're eating it as a meal."
+    },
+    {
+      "name": "cake",
+      "aliases": [],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on whether it's bread-status or more of a pastry, and how it's eaten."
+    },
+    {
+      "name": "cereal",
+      "aliases": [
+        "granola",
+        "oatmeal"
+      ],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on the grain and how much/how it's eaten."
+    },
+    {
+      "name": "pasta",
+      "aliases": [
+        "noodles"
+      ],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on the amount and how it's eaten."
+    },
+    {
+      "name": "pretzel",
+      "aliases": [
+        "pretzels"
+      ],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on whether it's a full bread-status item and whether you're eating it as a meal."
+    },
+    {
+      "name": "muffin",
+      "aliases": [
+        "muffins"
+      ],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on whether it's bread-status or more of a pastry, and how it's eaten."
+    },
+    {
+      "name": "croissant",
+      "aliases": [
+        "croissants"
+      ],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on whether it's bread-status or more of a pastry, and how it's eaten."
+    },
+    {
+      "name": "waffle",
+      "aliases": [
+        "waffles"
+      ],
+      "resolves_to": "cat_bread",
+      "needs_followup_note": "Depends on how it was made and how it's eaten."
+    },
+    {
+      "name": "pancake",
+      "aliases": [
+        "pancakes",
+        "crepe",
+        "crepes"
+      ],
+      "resolves_to": "final_mezonot_fried"
+    },
+    {
+      "name": "donut",
+      "aliases": [
+        "donuts",
+        "doughnut",
+        "doughnuts"
+      ],
+      "resolves_to": "final_mezonot_fried"
+    },
+    {
+      "name": "dumpling",
+      "aliases": [
+        "dumplings"
+      ],
+      "resolves_to": "boiled_then_baked_check",
+      "needs_followup_note": "Depends on whether it was pan-fried or baked after boiling."
+    },
+    {
+      "name": "kreplach",
+      "aliases": [],
+      "resolves_to": "boiled_then_baked_check",
+      "needs_followup_note": "Depends on whether it was pan-fried or baked after boiling."
+    },
+    {
+      "name": "matzah ball",
+      "aliases": [
+        "matzah balls",
+        "knaidel",
+        "knaidlach"
+      ],
+      "resolves_to": "boiled_then_baked_check",
+      "needs_followup_note": "Depends on whether it was pan-fried or baked after boiling."
+    },
+    {
+      "name": "pierogi",
+      "aliases": [
+        "pierogies"
+      ],
+      "resolves_to": "boiled_then_baked_check",
+      "needs_followup_note": "Depends on whether it was pan-fried or baked after boiling."
+    },
+    {
+      "name": "gnocchi",
+      "aliases": [],
+      "resolves_to": "boiled_then_baked_check",
+      "needs_followup_note": "Depends on whether it was pan-fried or baked after boiling."
+    },
+    {
+      "name": "ravioli",
+      "aliases": [],
+      "resolves_to": "boiled_then_baked_check",
+      "needs_followup_note": "Depends on whether it was pan-fried or baked after boiling."
+    },
+    {
+      "name": "granola bar",
+      "aliases": [
+        "muesli bar"
+      ],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of grain, fruit, and other ingredients — the answer depends on the mix."
+    },
+    {
+      "name": "trail mix",
+      "aliases": [
+        "nut mix",
+        "mixed nuts"
+      ],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of several food types — the answer depends on the mix."
+    },
+    {
+      "name": "fruit salad",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of several fruits — the answer depends on whether one is dominant."
+    },
+    {
+      "name": "rice with meat",
+      "aliases": [
+        "rice and chicken"
+      ],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of foods — the answer depends on which part is primary."
+    },
+    {
+      "name": "pizza",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a combination of dough, cheese, and toppings — the answer depends on the grain content."
+    },
+    {
+      "name": "sandwich",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a combination of bread and filling — the answer depends on the grain content."
+    },
+    {
+      "name": "burrito",
+      "aliases": [
+        "taco",
+        "quesadilla",
+        "wrap"
+      ],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a combination of a tortilla/wrap and filling — the answer depends on the grain content."
+    },
+    {
+      "name": "hamburger",
+      "aliases": [
+        "burger",
+        "hot dog"
+      ],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a combination of a bun and filling — the answer depends on the grain content."
+    },
+    {
+      "name": "quiche",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of a crust and filling — the answer depends on which part is primary."
+    },
+    {
+      "name": "casserole",
+      "aliases": [
+        "stew",
+        "chili",
+        "curry",
+        "stir fry"
+      ],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of multiple foods — the answer depends on which part is primary."
+    },
+    {
+      "name": "soup",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "The answer depends heavily on what's in it and how it was made — soups have a lot of specific rules."
+    },
+    {
+      "name": "salad",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of several vegetables (and sometimes more) — the answer depends on whether one is dominant."
+    },
+    {
+      "name": "cholent",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of meat, beans, potatoes, and grain — the answer depends on which part is primary."
+    },
+    {
+      "name": "kugel",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a baked mixture (noodle or potato) — the answer depends on the ingredients and how it's made."
+    },
+    {
+      "name": "smoothie",
+      "aliases": [
+        "milkshake"
+      ],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a blended mixture of multiple ingredients — the answer depends on the mix."
+    },
+    {
+      "name": "hummus",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of chickpea paste, oil, and other ingredients — the answer depends on which part is primary."
+    },
+    {
+      "name": "lasagna",
+      "aliases": [],
+      "resolves_to": "mixed_start",
+      "needs_followup_note": "It's a mixture of pasta, cheese, and sauce — the answer depends on the grain content."
+    }
   ]
 }
